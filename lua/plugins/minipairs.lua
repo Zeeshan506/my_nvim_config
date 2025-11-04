@@ -1,6 +1,6 @@
 return {
 	"nvim-mini/mini.pairs",
-	event = "VeryLazy",
+	event = "BufReadPre",
 	opts = {
 		modes = { insert = true, command = true, terminal = false },
 		skip_next = [=[[%w%%%'%[%"%.%`%$]]=],

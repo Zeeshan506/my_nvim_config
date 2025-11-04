@@ -13,9 +13,14 @@ return {
 			desc = "Format Injected Langs",
 		},
 	},
+
 	init = function()
-		-- Optional: auto-register formatters if you have LazyVim format integration
-		-- If not using LazyVim formatting, you can skip this
+		-- Enable auto-formatting on save
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			callback = function()
+				require("conform").format()
+			end,
+		})
 	end,
 	opts = {
 		default_format_opts = {
@@ -33,8 +38,8 @@ return {
 			typescript = { "prettier" },
 			html = { "prettier" },
 			css = { "prettier" },
-      javascriptreact = { "prettier" },
-      typescriptreact = { "prettier" },
+			javascriptreact = { "prettier" },
+			typescriptreact = { "prettier" },
 		},
 		formatters = {
 			injected = { options = { ignore_errors = true } },

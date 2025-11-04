@@ -1,35 +1,42 @@
 return {
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		event = "BufReadPost",
-		config = function()
-			local highlight = {
-				"RainbowRed",
-				"RainbowYellow",
-				"RainbowBlue",
-				"RainbowOrange",
-				"RainbowGreen",
-				"RainbowViolet",
-				"RainbowCyan",
-			}
-
-			local hooks = require("ibl.hooks")
-			hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-				vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-				vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-				vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-				vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-				vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-				vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-				vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-				vim.api.nvim_set_hl(0, "IblScope", { fg = "#C678DD", bold = true })
-			end)
-
-			require("ibl").setup({
-				indent = { highlight = highlight, tab_char = "│" },
-				scope = { enabled = true, show_start = true, highlight = "IblScope" },
-			})
-		end,
+	"nvim-mini/mini.indentscope",
+	version = false, -- wait till new 0.7.0 release to put it back on semver
+	event = "BufReadPre", -- Trigger on buffer read
+	opts = {
+		-- symbol = "▏",
+		symbol = "│",
+		options = { try_as_border = true },
 	},
+	init = function()
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = {
+				"Trouble",
+				"alpha",
+				"dashboard",
+				"fzf",
+				"help",
+				"lazy",
+				"mason",
+				"neo-tree",
+				"notify",
+				"sidekick_terminal",
+				"snacks_dashboard",
+				"snacks_notif",
+				"snacks_terminal",
+				"snacks_win",
+				"toggleterm",
+				"trouble",
+			},
+			callback = function()
+				vim.b.miniindentscope_disable = true
+			end,
+		})
+
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "SnacksDashboardOpened",
+			callback = function(data)
+				vim.b[data.buf].miniindentscope_disable = true
+			end,
+		})
+	end,
 }

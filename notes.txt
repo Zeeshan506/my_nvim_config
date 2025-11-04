@@ -1,0 +1,26 @@
+ h{
+      -- Core chat UI
+      { "<leader>cc", "<cmd>CopilotChatToggle<cr>", desc = "CopilotChat: Toggle" },
+      { "<leader>cC", "<cmd>CopilotChatClose<cr>",  desc = "CopilotChat: Close" },
+      { "<leader>cr", "<cmd>CopilotChatReset<cr>",  desc = "CopilotChat: Reset" },
+
+      -- Common actions (work with visual selection too)
+      { "<leader>ce", "<cmd>CopilotChatExplain<cr>",  mode = { "n", "v" }, desc = "Explain code (AI)" },
+      { "<leader>cf", "<cmd>CopilotChatFix<cr>",      mode = { "n", "v" }, desc = "Fix code (AI)" },
+      { "<leader>co", "<cmd>CopilotChatOptimize<cr>", mode = { "n", "v" }, desc = "Optimize code (AI)" },
+      { "<leader>cd", "<cmd>CopilotChatDocs<cr>",     mode = { "n", "v" }, desc = "Generate docs (AI)" },
+      { "<leader>ct", "<cmd>CopilotChatTests<cr>",    mode = { "n", "v" }, desc = "Generate tests (AI)" },
+      { "<leader>cR", "<cmd>CopilotChatReview<cr>",   mode = { "n", "v" }, desc = "Review selection (AI)" },
+
+      -- Models and prompts
+      { "<leader>cm", "<cmd>CopilotChatModels<cr>",   desc = "CopilotChat: Choose Model" },
+      -- If you use Telescope, this opens a picker of built-in prompts
+      {
+        "<leader>cp",
+        function()
+          local ok, t = pcall(require, "CopilotChat.integrations.telescope")
+          if ok then t.pick() else vim.cmd("CopilotChatToggle") end
+        end,
+        desc = "CopilotChat: Prompt Picker (Telescope if available)",
+      },
+    }
