@@ -4,7 +4,7 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("gitsigns").setup({
-				signsg = {
+				signs = {
 					add = { text = "▎" },
 					change = { text = "▎" },
 					delete = { text = "▁" },

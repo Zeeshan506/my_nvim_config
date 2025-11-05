@@ -73,4 +73,14 @@ return {
 			-- add python, html, css, etc. here if needed
 		end,
 	},
+	-- 💤 Load Tailwind CSS colorizer for CMP only when entering Insert mode
+	{
+		"roobert/tailwindcss-colorizer-cmp.nvim",
+		event = "InsertEnter",
+		config = function()
+			require("tailwindcss-colorizer-cmp").setup({
+				color_square_width = 2,
+			})
+		end,
+	},
 }
