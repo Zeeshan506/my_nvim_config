@@ -8,7 +8,6 @@ return {
 			require("nvim-surround").setup({})
 		end,
 	},
-
 	{
 		-- Highlight, edit, and navigate code using a fast incremental parsing library
 		"wellle/targets.vim",
